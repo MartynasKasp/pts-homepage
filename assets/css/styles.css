@@ -1,0 +1,24 @@
+body {
+    background-color: #E6E2E6;
+    margin: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.header {
+    background-color: #00AFAF;
+    height: 300px;
+    color: #eee;
+    padding-top: 30px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 5px 15px;
+    display: block;
+}
