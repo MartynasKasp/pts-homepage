@@ -5,11 +5,9 @@ import Header from './layout/Header';
 class App extends Component {
     render() {
         return (
-            <div className="container-fluid header">
-                <div className="container">
-                    <div className="row">
-                            <Header />
-                    </div>
+            <div className="container-fluid">
+                <div className="row header">
+                    <Header />
                 </div>
             </div>
         );

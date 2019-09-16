@@ -1,6 +1,5 @@
 body {
     background-color: #E6E2E6;
-    margin: 0;
 }
 
 .container-fluid {
@@ -9,9 +8,15 @@ body {
 
 .header {
     background-color: #00AFAF;
-    height: 300px;
+    height: auto;
     color: #eee;
     padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.center {
+    display: block;
+    margin: auto;
 }
 
 ul {
@@ -21,4 +26,20 @@ ul {
 li {
     padding: 5px 15px;
     display: block;
+}
+
+@media only screen and (max-width: 767px) {
+
+    #header-content {
+        display: block;
+        margin: 10px auto;
+    }
+
+    #header-content h1 {
+        text-align: center;
+    }
+
+    li {
+        display: none;
+    }
 }

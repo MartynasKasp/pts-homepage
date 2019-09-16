@@ -3,21 +3,21 @@ import React from 'react';
 function Header() {
     return (
         <React.Fragment>
-            <div className="col-12 col-lg-3">
+            <div id="profile-picture" className="col-12 col-md-4">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHXCzBqH-qb02GHWpaEFTTa6JSOORQQyUOFNTEOR7tONK8smY"
-                     className="rounded-circle" alt="Profile picture" />
+                     className="rounded-circle center" alt="Profile picture" />
             </div>
-            <div className="col-12 col-lg-9">
+            <div id="header-content" className="col-8">
                 <div className="row">
                     <div className="col-12">
-                        <h1> MARTYNAS KASPARAVIČIUS</h1>
+                        <h1>MARTYNAS KASPARAVIČIUS</h1>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         <ul className="social">
                             <li>
-                                <i className="fas fa-phone"></i> +3706 31 69 663
+                                <i className="fas fa-phone"></i> +370 631 69 663
                             </li>
                             <li>
                                 <i className="fas fa-envelope"></i> martis.kasparavicius@gmail.com
