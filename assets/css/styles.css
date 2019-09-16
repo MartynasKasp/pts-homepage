@@ -52,11 +52,48 @@ li {
     display: block;
 }
 
+#profile-picture {
+    padding-right: 60px;
+}
+
+#profile-picture img {
+    float: right;
+    display: block;
+    border: 3px solid #eee;
+}
+
+#header-content {
+    border-left: 1px solid #eee;
+    padding-left: 50px;
+}
+
+#header-content a {
+    border-bottom: 1px dashed #eee;
+    color: #eee;
+}
+
+#header-content a:hover {
+    text-decoration: none;
+    color: #fff;
+    border-bottom: none;
+}
+
 @media only screen and (max-width: 767px) {
+
+    #profile-picture {
+        padding-right: 0;
+    }
+
+    #profile-picture img {
+        float: none;
+        margin: auto;
+    }
 
     #header-content {
         display: block;
         margin: 10px auto;
+        padding: 0;
+        border: none;
     }
 
     #header-content h1 {
