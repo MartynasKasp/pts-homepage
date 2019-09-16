@@ -1,0 +1,45 @@
+body {
+    background-color: #E6E2E6;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.header {
+    background-color: #00AFAF;
+    height: auto;
+    color: #eee;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.center {
+    display: block;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 5px 15px;
+    display: block;
+}
+
+@media only screen and (max-width: 767px) {
+
+    #header-content {
+        display: block;
+        margin: 10px auto;
+    }
+
+    #header-content h1 {
+        text-align: center;
+    }
+
+    li {
+        display: none;
+    }
+}
