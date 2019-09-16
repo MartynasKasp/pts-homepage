@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome to my CV!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to my CV!{% endblock %}</title>
 
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <!-- Bootstrap CDN -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 
-    {{ encore_entry_link_tags('styles') }}
-</head>
-<body>
-        {% block body %}{% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('styles') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <div id="root"></div>
+        {% endblock %}
 
-        <div id="root"></div>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 
-        {% block javascripts %}{% endblock %}
-
-        {{ encore_entry_script_tags('app') }}
         <!-- Javascript for Bootstrap -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
