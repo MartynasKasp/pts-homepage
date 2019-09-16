@@ -17,19 +17,19 @@ function Header() {
                     <div className="col-12">
                         <ul className="social">
                             <li>
-                                <i className="fas fa-phone"></i> +370 631 69 663
+                                <i className="fas fa-phone"></i>&nbsp; +370 631 69 663
                             </li>
                             <li>
-                                <i className="fas fa-envelope"></i> martis.kasparavicius@gmail.com
+                                <i className="fas fa-envelope"></i>&nbsp; martis.kasparavicius@gmail.com
                             </li>
                             <li>
-                                <i className="fab fa-linkedin"></i> linkedin.com/in/martynaskaspa
+                                <i className="fab fa-linkedin"></i>&nbsp; linkedin.com/in/martynaskaspa
                             </li>
                             <li>
-                                <i className="fab fa-github"></i> github.com/MartynasKaspa
+                                <i className="fab fa-github"></i>&nbsp; github.com/MartynasKaspa
                             </li>
                             <li>
-                                <i className="fas fa-home"></i> Kaunas, Lietuva
+                                <i className="fas fa-home"></i>&nbsp; Kaunas, Lietuva
                             </li>
                         </ul>
                     </div>
