@@ -1,5 +1,6 @@
 body {
     background-color: #E6E2E6;
+    color: #000;
 }
 
 .container-fluid {
@@ -7,16 +8,38 @@ body {
 }
 
 .header {
-    background-color: #00AFAF;
+    background-color: #00A69D;
     height: auto;
     color: #eee;
     padding-top: 30px;
     padding-bottom: 20px;
 }
 
+#content {
+    padding: 50px 150px;
+    line-height: 1.6;
+}
+
+#content h1 {
+    color: #00A69D;
+    margin-bottom: 20px;
+}
+
 .center {
     display: block;
     margin: auto;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-light {
+    color: #00A69D !important;
+}
+
+.align-justify {
+    text-align: justify;
 }
 
 ul {
