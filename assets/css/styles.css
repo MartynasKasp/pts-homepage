@@ -1,6 +1,7 @@
 body {
     background-color: #E6E2E6;
     color: #000;
+    font-family: 'Akzidenz-grotesk';
 }
 
 .container-fluid {
@@ -65,4 +66,9 @@ li {
     li {
         display: none;
     }
+}
+
+@font-face {
+    font-family: 'Akzidenz-grotesk';
+    src: url('/public/build/fonts/Akzidenz-grotesk-light.ttf') format('truetype');
 }
