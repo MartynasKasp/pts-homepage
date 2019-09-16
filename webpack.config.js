@@ -1,5 +1,7 @@
 var Encore = require('@symfony/webpack-encore');
 
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -7,6 +9,10 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
+
+    .addPlugin(new CopyWebpackPlugin([
+        { from: './assets/fonts', to: 'fonts'}
+    ]))
 
     /*
      * ENTRY CONFIG
