@@ -11,30 +11,38 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiSocialsController extends AbstractController
 {
     /**
-     * @Route("/api/socials", name="api_socials")
+     * @Route("/api/socials/add", name="api_socials_add")
      */
-    public function editSocial(Request $request)
+    public function addSocial(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($request->request->get('method') === 'delete') {
+        $social = new Social();
+        $social->setIcon($request->request->get('icon'));
+        $social->setName($request->request->get('name'));
+        $social->setUrl($request->request->get('url'));
 
-            $social = $em->getRepository(Social::class)->find(
-                $request->request->get('id')
-            );
+        $em->persist($social);
+        $em->flush();
 
-            $em->remove($social);
-            $em->flush();
-        }
-        else if($request->request->get('method') === 'new') {
-            $social = new Social();
-            $social->setIcon($request->request->get('iconValue'));
-            $social->setName($request->request->get('nameValue'));
-            $social->setUrl($request->request->get('urlValue'));
+        return new JsonResponse([
+            'message' => 'OK'
+        ]);
+    }
 
-            $em->persist($social);
-            $em->flush();
-        }
+    /**
+     * @Route("/api/socials/delete", name="api_socials_delete")
+     */
+    public function deleteSocial(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $social = $em->getRepository(Social::class)->find(
+            $request->request->get('id')
+        );
+
+        $em->remove($social);
+        $em->flush();
 
         return new JsonResponse([
             'message' => 'OK'

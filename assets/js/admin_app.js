@@ -12,10 +12,9 @@ class AdminApp extends Component {
     deleteSocialItem(id) {
 
         $.ajax({
-            url: 'http://127.0.0.1/api/socials',
+            url: 'http://127.0.0.1/api/socials/delete',
             type: 'POST',
             data: {
-                method: 'delete',
                 id: id
             },
             dataType: 'json',
