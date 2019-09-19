@@ -33,4 +33,12 @@ class LandingPageController extends AbstractController
             'repLogAppProps' => $repLogAppProps,
         ]);
     }
+
+    /**
+     * @Route("/contact", name="app_contact")
+     */
+    public function contact()
+    {
+        return $this->index();
+    }
 }
