@@ -2,10 +2,10 @@ import React from 'react';
 
 function Content() {
     return (
-        <React.Fragment>
+        <div id="content" className="row">
             <div className="col-12 col-lg-5 mt-5">
                 <hr/>
-                <h1>TIKSLAS</h1>
+                <h1>ASMENINIS TIKSLAS</h1>
 
                 <span className="align-justify">Šiuo metu ieškau darbo IT srityje kaip Full-Stack/Back-end programuotojas, nes būtent šios srities profesionalu noriu tapti.
                             Noriu įgyti naujų žinių, įgūdžių bei tobulėti. Internetinių puslapių kūrimu susidomėjau jau seniai, dar prieš įstodamas į universitetą.</span>
@@ -83,7 +83,7 @@ function Content() {
                     pareigingumas; atsakomybės jausmas; punktualumas; darbštumas; sąžiningumas; paslaugumas; imlus naujovėms.
                 </span>
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 
