@@ -1,19 +1,31 @@
 {
-    "devDependencies": {
-        "@babel/preset-react": "^7.0.0",
-        "@symfony/webpack-encore": "^0.24.0",
-        "babel-preset-react": "^6.24.1",
-        "prop-types": "^15.7.2",
-        "react": "^16.8.5",
-        "react-dom": "^16.8.5",
-        "webpack-notifier": "^1.6.0"
-    },
-    "license": "UNLICENSED",
-    "private": true,
-    "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
-    }
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.10.2",
+    "@symfony/webpack-encore": "^0.24.0",
+    "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "4",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "webpack-notifier": "^1.6.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  }
 }

@@ -1,0 +1,35 @@
+body {
+    background-color: #E6E2E6;
+    color: #000;
+    font-family: 'Akzidenz-grotesk';
+}
+
+.navbar {
+    background-color: #00A69D;
+}
+
+.navbar-item {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.navbar-item a:hover {
+    background-color: #eee;
+}
+
+#social-link-item {
+    margin: 5px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline;
+}
+
+@font-face {
+    font-family: 'Akzidenz-grotesk';
+    src: url('/public/build/fonts/Akzidenz-grotesk-light.ttf') format('truetype');
+}

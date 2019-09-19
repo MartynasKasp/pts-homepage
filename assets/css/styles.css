@@ -1,5 +1,7 @@
 body {
     background-color: #E6E2E6;
+    color: #000;
+    font-family: 'Akzidenz-grotesk';
 }
 
 .container-fluid {
@@ -7,16 +9,38 @@ body {
 }
 
 .header {
-    background-color: #00AFAF;
+    background-color: #00A69D;
     height: auto;
     color: #eee;
     padding-top: 30px;
     padding-bottom: 20px;
 }
 
+#content {
+    padding: 50px 150px;
+    line-height: 1.6;
+}
+
+#content h1 {
+    color: #00A69D;
+    margin-bottom: 20px;
+}
+
 .center {
     display: block;
     margin: auto;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-light {
+    color: #00A69D !important;
+}
+
+.align-justify {
+    text-align: justify;
 }
 
 ul {
@@ -28,11 +52,48 @@ li {
     display: block;
 }
 
+#profile-picture {
+    padding-right: 60px;
+}
+
+#profile-picture img {
+    float: right;
+    display: block;
+    border: 3px solid #eee;
+}
+
+#header-content {
+    border-left: 1px solid #eee;
+    padding-left: 50px;
+}
+
+#header-content a {
+    border-bottom: 1px dashed #eee;
+    color: #eee;
+}
+
+#header-content a:hover {
+    text-decoration: none;
+    color: #fff;
+    border-bottom: none;
+}
+
 @media only screen and (max-width: 767px) {
+
+    #profile-picture {
+        padding-right: 0;
+    }
+
+    #profile-picture img {
+        float: none;
+        margin: auto;
+    }
 
     #header-content {
         display: block;
         margin: 10px auto;
+        padding: 0;
+        border: none;
     }
 
     #header-content h1 {
@@ -42,4 +103,9 @@ li {
     li {
         display: none;
     }
+}
+
+@font-face {
+    font-family: 'Akzidenz-grotesk';
+    src: url('/public/build/fonts/Akzidenz-grotesk-light.ttf') format('truetype');
 }
