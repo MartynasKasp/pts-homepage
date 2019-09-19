@@ -48,4 +48,26 @@ class ApiSocialsController extends AbstractController
             'message' => 'OK'
         ]);
     }
+
+    /**
+     * @Route("/api/socials/edit", name="api_socials_edit")
+     */
+    public function editSocial(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $social = $em->getRepository(Social::class)->find(
+            $request->request->get('id')
+        );
+
+        $social->setName($request->request->get('name'));
+        $social->setUrl($request->request->get('url'));
+        $social->setIcon($request->request->get('icon'));
+
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'OK'
+        ]);
+    }
 }

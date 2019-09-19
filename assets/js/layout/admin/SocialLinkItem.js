@@ -2,17 +2,62 @@ import React, { Component } from 'react';
 
 class SocialLinkItem extends Component {
 
+    state = {
+        id: this.props.item.id,
+        nameValue: this.props.item.name,
+        urlValue: this.props.item.url,
+        iconValue: this.props.item.icon
+    };
+
+    handleChange = (e) => {
+        if(e.target.name === 'name') {
+            this.setState({
+                nameValue: e.target.value
+            });
+        }
+        if(e.target.name === 'url') {
+            this.setState({
+                urlValue: e.target.value
+            });
+        }
+        if(e.target.name === 'icon') {
+            this.setState({
+                iconValue: e.target.value
+            });
+        }
+    };
+
+    editSocial = () => {
+
+        $.ajax({
+            url: 'http://127.0.0.1/api/socials/edit',
+            type: 'POST',
+            data: {
+                id: this.state.id,
+                name: this.state.nameValue,
+                url: this.state.urlValue,
+                icon: this.state.iconValue
+            },
+            dataType: 'json',
+            success: function(response) {
+                console.log(response)
+            },
+            error: function(xhr) {
+                console.log(`An error occurred: ${xhr.status} ${xhr.statusText}`)
+            }
+        });
+    };
+
     render() {
-        const {id, name, url, icon} = this.props.item;
         return(
             <div id="social-link-item">
-                <input type="text" name="socialLinkName" value={name} />
-                <input type="text" name="socialLinkUrl" value={url} />
-                <input type="text" name="socialLinkIcon" value={icon} />
-
+                <input type="text" name="name" value={this.state.nameValue} onChange={this.handleChange} />
+                <input type="text" name="url" value={this.state.urlValue} onChange={this.handleChange} />
+                <input type="text" name="icon" value={this.state.iconValue} onChange={this.handleChange} />
+                <button onClick={this.editSocial.bind(this)}>
                     <i className="fas fa-edit fa-lg"></i>
-
-                <button onClick={this.props.deleteSocial.bind(this, id)}>
+                </button>
+                <button onClick={this.props.deleteSocial.bind(this, this.props.item.id)}>
                     <i className="fas fa-trash fa-lg"></i>
                 </button>
             </div>
