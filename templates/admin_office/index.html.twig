@@ -1,24 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{{ page_title }}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+{% extends 'base.html.twig' %}
 
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+{% block title %}{{ page_title }}{% endblock %}
 
+{% block stylesheets %}
     {{ encore_entry_link_tags('admin_styles') }}
-</head>
-<body>
-    {% block body %}{% endblock %}
+{% endblock %}
 
+{% block body %}
     <div id="root"></div>
+{% endblock %}
 
-    {% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script>
+        {% if repLogAppProps is defined %}
+            window.REP_LOG_APP_PROPS = {{ repLogAppProps|json_encode|raw }};
+        {% endif %}
+    </script>
 
     {{ encore_entry_script_tags('admin_app') }}
-    <!-- Javascript for Bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

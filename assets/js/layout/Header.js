@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
     return (
-        <React.Fragment>
+        <div className="row header">
             <div id="profile-picture" className="col-12 col-md-5">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHXCzBqH-qb02GHWpaEFTTa6JSOORQQyUOFNTEOR7tONK8smY"
                      className="rounded-circle" alt="Profile picture" />
@@ -35,7 +35,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 

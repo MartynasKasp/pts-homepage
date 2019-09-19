@@ -2,7 +2,7 @@ import React from 'react';
 
 function Content() {
     return (
-        <React.Fragment>
+        <div id="content" className="row">
             <div className="col-12 col-lg-5 mt-5">
                 <hr/>
                 <h1>TIKSLAS</h1>
@@ -83,7 +83,7 @@ function Content() {
                     pareigingumas; atsakomybės jausmas; punktualumas; darbštumas; sąžiningumas; paslaugumas; imlus naujovėms.
                 </span>
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 
