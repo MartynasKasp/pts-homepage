@@ -109,6 +109,34 @@ class ApiController extends AbstractController
             ]);
         }
 
+        $data['message'] = strip_tags($data['message']);
+
+        $formErrors = [];
+        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $formErrors['emailError'] = 'Privalote įvesti galiojantį el. pašto adresą.';
+        }
+
+        if(empty($data['name'])) {
+            $formErrors['nameError'] = 'Privalote įvesti savo vardą.';
+        }
+        else if(strlen($data['name']) < 5) {
+            $formErrors['nameError'] = 'Pateiktas vardas yra per trumpas.';
+        }
+        else if(strlen($data['name']) > 30) {
+            $formErrors['nameError'] = 'Pateiktas vardas yra per ilgas.';
+        }
+
+        if(empty($data['message'])) {
+            $formErrors['messageError'] = 'Privalote įvesti žinutę.';
+        }
+        else if(strlen($data['message']) > 1000) {
+            $formErrors['messageError'] = 'Įvestas per ilgas žinutės tekstas.';
+        }
+
+        if(!empty($formErrors)) {
+            return new JsonResponse($formErrors);
+        }
+
         $message = (new \Swift_Message('Nauja žinutė iš portfolio'))
             ->setFrom($data['email'])
             ->setTo('martis.kasparavicius@gmail.com')
