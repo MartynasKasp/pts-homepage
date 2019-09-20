@@ -14,7 +14,6 @@
     <script>
         {% if repLogAppProps is defined %}
             window.REP_LOG_APP_PROPS = {{ repLogAppProps|json_encode|raw }};
-            console.log(window.REP_LOG_APP_PROPS);
         {% endif %}
     </script>
 
