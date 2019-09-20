@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import Navbar from './layout/admin/Navbar';
 import AddSocialLink from './layout/admin/AddSocialLink';
 import SocialLinks from './layout/admin/SocialLinks';
+import axios from 'axios';
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
@@ -14,65 +14,58 @@ class AdminApp extends Component {
 
         this.state = {
             socialLinks: window.REP_LOG_APP_PROPS.socialLinks,
+            addNewErrors: {
+                nameError: false,
+                urlError: false,
+                iconError: false
+            }
         }
     }
 
     deleteSocialItem = (id) => {
 
-        this.setState({ socialLinks:
-            [...this.state.socialLinks.filter(social => social.id !== id)]
-        });
-
-        $.ajax({
-            url: 'http://127.0.0.1/api/socials/delete',
-            type: 'POST',
-            data: {
-                id: id
-            },
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(xhr) {
-                console.log(`An error occurred: ${xhr.status} ${xhr.statusText}`);
-            }
-        });
+        axios.delete(`http://127.0.0.1/api/socials/delete/${id}`)
+            .then(res => {
+                this.setState({ socialLinks:
+                    [...this.state.socialLinks.filter(social => social.id !== id)]
+                });
+            })
     };
 
     addSocialItem = (social) => {
 
-        this.setState({
-            socialLinks: [...this.state.socialLinks, {
-                name: social.nameValue,
-                url: social.urlValue,
-                icon: social.iconValue
-            }]
-        });
-
-        $.ajax({
-            url: 'http://127.0.0.1/api/socials/add',
-            type: 'POST',
-            data: {
-                name: social.nameValue,
-                url: social.urlValue,
-                icon: social.iconValue
-            },
-            dataType: 'json',
-            success: function(response) {
-                console.log(response)
-            },
-            error: function(xhr) {
-                console.log(`An error occurred: ${xhr.status} ${xhr.statusText}`)
-            }
-        });
+        axios.post('http://127.0.0.1/api/socials/add', {
+            name: social.nameValue,
+            url: social.urlValue,
+            icon: social.iconValue
+        })
+            .then(response => {
+                if(response.data.message) {
+                    this.setState({ socialLinks:
+                            [...this.state.socialLinks, {
+                                id: response.data.item.id,
+                                name: response.data.item.name,
+                                url: response.data.item.url,
+                                icon: response.data.item.icon,
+                            }]
+                    })
+                } else {
+                    this.setState({ addNewErrors: {
+                            nameError: response.data.nameError,
+                            urlError: response.data.urlError,
+                            iconError: response.data.iconError,
+                        }
+                    })
+                }
+            })
     };
 
     render() {
         return (
             <div className="container">
-                <Navbar />
                 <AddSocialLink
-                    addSocial={this.addSocialItem}
+                    addSocialItem={this.addSocialItem}
+                    validationErrors={this.state.addNewErrors}
                 />
                 <SocialLinks
                     socialLinks={this.state.socialLinks}
