@@ -3,16 +3,15 @@ import React from 'react';
 function Content() {
     return (
         <div id="content" className="row">
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
                 <h1>ASMENINIS TIKSLAS</h1>
 
                 <span className="align-justify">Šiuo metu ieškau darbo IT srityje kaip Full-Stack/Back-end programuotojas, nes būtent šios srities profesionalu noriu tapti.
                             Noriu įgyti naujų žinių, įgūdžių bei tobulėti. Internetinių puslapių kūrimu susidomėjau jau seniai, dar prieš įstodamas į universitetą.</span>
             </div>
             <div className="col-lg-2"></div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
                 <h1>DARBO PATIRTIS</h1>
 
                 <span className="text-bold">UAB „MAGNUS IC“ – PRESTAROCK |</span> JUNIOR PHP DEVELOPER
@@ -23,8 +22,8 @@ function Content() {
                         Praktikos metu dirbau su PrestaShop turinio valdymo sistema, kūriau modulius, dirbau su šablonais naudodamas Smarty.
                             Taip pat praktikos metu dirbau su Symfony 4 karkasu.</span>
             </div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
 
                 <h1>ĮGŪDŽIAI IR GEBĖJIMAI</h1>
 
@@ -36,8 +35,8 @@ function Content() {
                         Žinau ir suprantu Agile projektų valdymo metodą.</span>
             </div>
             <div className="col-lg-2"></div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
 
                 <h1>IŠSILAVINIMAS</h1>
 
@@ -50,8 +49,8 @@ function Content() {
                 <br/>
                 <span className="text-light">2004 - 2016</span>
             </div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
 
                 <h1>KALBINIAI ĮGŪDŽIAI</h1>
 
@@ -62,8 +61,8 @@ function Content() {
                 </span>
             </div>
             <div className="col-lg-2"></div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
 
                 <h1>VEIKLA</h1>
 
@@ -73,8 +72,8 @@ function Content() {
                     2019 metų pradžioje universitete atlikau semestro projekto praktiką UAB „Data Dog“ įmonėje.
                 </span>
             </div>
-            <div className="col-12 col-lg-5 mt-5">
-                <hr/>
+            <div className="col-12 col-lg-5 mt-5 content-block">
+
 
                 <h1>ASMENINĖS SAVYBĖS</h1>
 

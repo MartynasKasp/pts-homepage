@@ -72,6 +72,12 @@ li {
     color: #eee;
 }
 
+.content-block {
+    border-top: 1px solid #868686;
+    text-align: justify;
+    padding-top: 20px;
+}
+
 #header-content a:hover {
     text-decoration: none;
     color: #fff;
