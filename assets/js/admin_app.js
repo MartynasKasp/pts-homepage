@@ -14,6 +14,11 @@ class AdminApp extends Component {
 
         this.state = {
             socialLinks: window.REP_LOG_APP_PROPS.socialLinks,
+            addNewErrors: {
+                nameError: false,
+                urlError: false,
+                iconError: false
+            }
         }
     }
 
@@ -35,14 +40,23 @@ class AdminApp extends Component {
             icon: social.iconValue
         })
             .then(response => {
-                this.setState({ socialLinks:
-                    [...this.state.socialLinks, {
-                        id: response.data.item.id,
-                        name: response.data.item.name,
-                        url: response.data.item.url,
-                        icon: response.data.item.icon,
-                    }]
-                })
+                if(response.data.message) {
+                    this.setState({ socialLinks:
+                            [...this.state.socialLinks, {
+                                id: response.data.item.id,
+                                name: response.data.item.name,
+                                url: response.data.item.url,
+                                icon: response.data.item.icon,
+                            }]
+                    })
+                } else {
+                    this.setState({ addNewErrors: {
+                            nameError: response.data.nameError,
+                            urlError: response.data.urlError,
+                            iconError: response.data.iconError,
+                        }
+                    })
+                }
             })
     };
 
@@ -51,6 +65,7 @@ class AdminApp extends Component {
             <div className="container">
                 <AddSocialLink
                     addSocialItem={this.addSocialItem}
+                    validationErrors={this.state.addNewErrors}
                 />
                 <SocialLinks
                     socialLinks={this.state.socialLinks}

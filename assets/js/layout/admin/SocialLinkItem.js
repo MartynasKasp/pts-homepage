@@ -7,7 +7,10 @@ class SocialLinkItem extends Component {
         id: this.props.item.id,
         nameValue: this.props.item.name,
         urlValue: this.props.item.url,
-        iconValue: this.props.item.icon
+        iconValue: this.props.item.icon,
+        nameError: false,
+        iconError: false,
+        urlError: false,
     };
 
     handleChange = (e) => {
@@ -34,15 +37,34 @@ class SocialLinkItem extends Component {
             name: this.state.nameValue,
             url: this.state.urlValue,
             icon: this.state.iconValue
-        });
+        })
+            .then(response => {
+                this.setState({
+                    nameError: response.data.nameError,
+                    urlError: response.data.urlError,
+                    iconError: response.data.iconError
+                })
+            });
+    };
+
+    getStyle = (error) => {
+        if (error) {
+            return {
+                border: '1px solid #c5191c'
+            }
+        } else {
+            return {
+                border: '1px solid #bbb'
+            }
+        }
     };
 
     render() {
         return(
             <div id="social-link-item">
-                <input type="text" name="name" value={this.state.nameValue} onChange={this.handleChange} />
-                <input type="text" name="url" value={this.state.urlValue} onChange={this.handleChange} />
-                <input type="text" name="icon" value={this.state.iconValue} onChange={this.handleChange} />
+                <input type="text" name="name" style={this.getStyle(this.state.nameError)} value={this.state.nameValue} onChange={this.handleChange} />
+                <input type="text" name="url" style={this.getStyle(this.state.urlError)} value={this.state.urlValue} onChange={this.handleChange} />
+                <input type="text" name="icon" style={this.getStyle(this.state.iconError)} value={this.state.iconValue} onChange={this.handleChange} />
                 <button onClick={this.editSocial.bind(this)}>
                     <i className="fas fa-edit fa-lg"></i>
                 </button>

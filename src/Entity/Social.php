@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SocialRepository")
@@ -18,16 +19,19 @@ class Social
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Name must be provided")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Url must be provided")
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Icon must be provided")
      */
     private $icon;
 
