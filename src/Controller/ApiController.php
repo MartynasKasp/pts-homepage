@@ -98,13 +98,39 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/email/send", name="api_email_send")
      */
-    public function emailSend(Request $request)
+    public function emailSend(Request $request, \Swift_Mailer $mailer)
     {
         $data = $request->getContent();
         $data = json_decode($data, true);
 
+        if(empty($data)) {
+            return new JsonResponse([
+                'error' => 'ERROR'
+            ]);
+        }
+
+        $message = (new \Swift_Message('Nauja žinutė iš portfolio'))
+            ->setFrom($data['email'])
+            ->setTo('martis.kasparavicius@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'emails/contact_message.html.twig',
+                    [
+                        'message' => $data['message'],
+                        'name' => $data['name']
+                    ]
+                ),
+                'text/html'
+            );
+
+        if(!$mailer->send($message)) {
+            return new JsonResponse([
+                'errorMessage' => 'Kažkas įvyko neteisingai, Jūsų žinutė nebuvo išsiųsta!'
+            ]);
+        }
+
         return new JsonResponse([
-            'message' => 'OK'
+            'successMessage' => 'Jūsų žinutė išsiųsta sėkmingai!'
         ]);
     }
 

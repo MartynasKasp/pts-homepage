@@ -78,6 +78,10 @@ li {
     border-bottom: none;
 }
 
+.validation-error {
+    color: #c5191c;
+}
+
 @media only screen and (max-width: 767px) {
 
     #profile-picture {

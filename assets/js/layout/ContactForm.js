@@ -13,6 +13,7 @@ class ContactForm extends Component {
             emailError: '',
             nameError: '',
             messageError: '',
+            errorMessage: '',
             successMessage: ''
         };
     }
@@ -49,58 +50,64 @@ class ContactForm extends Component {
             message: this.state.messageValue
         })
             .then(response => {
-                console.log(response);
-            })
-
-        /*
-        $.ajax({
-            url: 'http://127.0.0.1/api/sendmail',
-            type: 'POST',
-            data: {
-                email: this.state.emailValue,
-                name: this.state.nameValue,
-                message: this.state.messageValue
-            },
-            dataType: 'json',
-            success: function(response) {
                 this.setState({
-                    emailError: response.emailError ? response.emailError : null,
-                    nameError: response.nameError ? response.nameError : null,
-                    messageError: response.messageError ? response.messageError : null,
-                    successMessage: response.successMessage ? response.successMessage : null
-                });
-            }.bind(this),
-            error: function(xhr) {
-                console.log(`An error occurred: ${xhr.status} ${xhr.statusText}`);
-            }
-        })*/
-
+                    emailError: response.data.emailError ? response.data.emailError : '',
+                    nameError: response.data.nameError ? response.data.nameError : '',
+                    messageError: response.data.messageError ? response.data.messageError : '',
+                    successMessage: response.data.successMessage ? response.data.successMessage : '',
+                    errorMessage: response.data.errorMessage ? response.data.errorMessage : '',
+                })
+            })
     };
+
+    getStyle = (error) => {
+        return {
+            border: error ? '1px solid #c5191c' : '1px solid #ccc'
+        }
+    }
 
     render() {
         return (
             <div className="row d-flex justify-content-center">
                 <div className="col-10 col-md-8 mt-5">
+
+                    { this.state.successMessage &&
+                        <div className="alert alert-success alert-dismissible">
+                            <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {this.state.successMessage}
+                        </div>
+                    }
+
+                    { this.state.errorMessage &&
+                    <div className="alert alert-danger alert-dismissible">
+                        <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {this.state.errorMessage}
+                    </div>
+                    }
+
                     <form onSubmit={this.handleSubmit}>
 
                         <div className="form-row">
                             <div className="col-12 col-md-6">
                                 <div className="form-group">
                                     <label htmlFor="email">El. pašto adresas</label>
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="vardas@pavyzdys.lt" />
+                                    <input type="email" className="form-control" style={this.getStyle(this.state.emailError)} onChange={this.handleChange} name="email" id="email" placeholder="vardas@pavyzdys.lt" aria-describedby="email-error" />
+                                    <small id="email-error" className="form-text validation-error">{this.state.emailError}</small>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className="form-group">
                                     <label htmlFor="name">Jūsų vardas</label>
-                                    <input type="text" className="form-control" name="name" id="name" placeholder="Įveskite vardą" />
+                                    <input type="text" className="form-control" style={this.getStyle(this.state.nameError)} onChange={this.handleChange} name="name" id="name" placeholder="Įveskite vardą" aria-describedby="name-error" />
+                                    <small id="name-error" className="form-text validation-error">{this.state.nameError}</small>
                                 </div>
                             </div>
                         </div>
                         <div className="form-group">
                             <label htmlFor="message">Comment</label>
-                            <textarea className="form-control" id="message" name="message"
-                                      placeholder="Parašykite savo žinutę čia..." rows="3" maxLength="1000"></textarea>
+                            <textarea className="form-control" style={this.getStyle(this.state.messageError)} id="message" name="message" onChange={this.handleChange}
+                                      placeholder="Parašykite savo žinutę čia..." aria-describedby="message-error" rows="3" maxLength="1000"></textarea>
+                            <small id="message-error" className="form-text validation-error">{this.state.messageError}</small>
                         </div>
                         <button type="submit" className="btn btn-light">Siųsti</button>
                     </form>
