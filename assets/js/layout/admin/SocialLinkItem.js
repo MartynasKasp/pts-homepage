@@ -61,16 +61,31 @@ class SocialLinkItem extends Component {
 
     render() {
         return(
-            <div id="social-link-item">
-                <input type="text" name="name" style={this.getStyle(this.state.nameError)} value={this.state.nameValue} onChange={this.handleChange} />
-                <input type="text" name="url" style={this.getStyle(this.state.urlError)} value={this.state.urlValue} onChange={this.handleChange} />
-                <input type="text" name="icon" style={this.getStyle(this.state.iconError)} value={this.state.iconValue} onChange={this.handleChange} />
-                <button onClick={this.editSocial.bind(this)}>
-                    <i className="fas fa-edit fa-lg"></i>
-                </button>
-                <button onClick={this.props.deleteSocial.bind(this, this.props.item.id)}>
-                    <i className="fas fa-trash fa-lg"></i>
-                </button>
+            <div className="form-row">
+                <div className="col-12 col-md-3">
+                    <div className="form-group">
+                        <input type="text" className="form-control" style={this.getStyle(this.state.nameError)} value={this.state.nameValue} onChange={this.handleChange} name="name" />
+                    </div>
+                </div>
+                <div className="col-12 col-md-3">
+                    <div className="form-group">
+                        <input type="text" className="form-control" style={this.getStyle(this.state.urlError)} value={this.state.urlValue} onChange={this.handleChange} name="url" />
+                    </div>
+                </div>
+                <div className="col-12 col-md-3">
+                    <div className="form-group">
+                        <input type="text" className="form-control" style={this.getStyle(this.state.iconError)} value={this.state.iconValue} onChange={this.handleChange} name="icon" />
+                    </div>
+                </div>
+                <div className="col-12 col-md-2">
+                    <button className="btn btn-success" onClick={this.editSocial()}>
+                        <i className="fas fa-edit"></i>
+                    </button>
+                    {' '}
+                    <button className="btn btn-danger" onClick={this.props.deleteSocial.bind(this, this.props.item.id)}>
+                        <i className="fas fa-trash"></i>
+                    </button>
+                </div>
             </div>
         )
     }
