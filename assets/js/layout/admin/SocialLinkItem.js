@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class SocialLinkItem extends Component {
 
@@ -29,22 +30,10 @@ class SocialLinkItem extends Component {
 
     editSocial = () => {
 
-        $.ajax({
-            url: 'http://127.0.0.1/api/socials/edit',
-            type: 'POST',
-            data: {
-                id: this.state.id,
-                name: this.state.nameValue,
-                url: this.state.urlValue,
-                icon: this.state.iconValue
-            },
-            dataType: 'json',
-            success: function(response) {
-                console.log(response)
-            },
-            error: function(xhr) {
-                console.log(`An error occurred: ${xhr.status} ${xhr.statusText}`)
-            }
+        axios.post(`http://127.0.0.1/api/socials/edit/${this.state.id}`, {
+            name: this.state.nameValue,
+            url: this.state.urlValue,
+            icon: this.state.iconValue
         });
     };
 
