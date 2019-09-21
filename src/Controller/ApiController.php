@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Social;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -137,9 +138,16 @@ class ApiController extends AbstractController
             return new JsonResponse($formErrors);
         }
 
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        $targetEmails = [];
+        foreach($users as $user) {
+            $targetEmails[] = $user->getEmail();
+        }
+
         $message = (new \Swift_Message('Nauja žinutė iš portfolio'))
             ->setFrom($data['email'])
-            ->setTo('martis.kasparavicius@gmail.com')
+            ->setTo($targetEmails)
             ->setBody(
                 $this->renderView(
                     'emails/contact_message.html.twig',
