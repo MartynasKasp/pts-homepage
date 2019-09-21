@@ -8,12 +8,6 @@ a {
     color: #f5f1f5;
 }
 
-a:hover {
-    text-decoration: none;
-    color: #fff;
-    border-bottom: none;
-}
-
 .container-fluid {
     padding: 0;
 }
@@ -99,6 +93,12 @@ a:hover {
 
 #header-content a {
     border-bottom: 1px dashed #eee;
+}
+
+#header-content a:hover {
+    text-decoration: none;
+    color: #fff;
+    border-bottom: none;
 }
 
 #header-content ul {
