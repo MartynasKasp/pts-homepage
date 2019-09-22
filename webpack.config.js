@@ -26,8 +26,8 @@ Encore
     .addStyleEntry('styles', './assets/css/styles.css')
     .addStyleEntry('admin_styles', './assets/css/admin_styles.css')
 
-    .addEntry('app', './assets/js/app.js')
-    .addEntry('admin_app', './assets/js/admin_app.js')
+    .addEntry('app', './assets/js/app.jsx')
+    .addEntry('admin_app', './assets/js/admin_app.jsx')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
