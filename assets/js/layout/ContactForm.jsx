@@ -21,22 +21,19 @@ class ContactForm extends Component {
     handleChange = (e) => {
         e.preventDefault();
 
-        if(e.target.name === 'email') {
-            this.setState({
-                emailValue: e.target.value
-            });
-        }
-
-        if(e.target.name === 'name') {
-            this.setState({
-                nameValue: e.target.value
-            });
-        }
-
-        if(e.target.name === 'message') {
-            this.setState({
-                messageValue: e.target.value
-            });
+        switch(e.target.name) {
+            case 'email':
+                return this.setState({
+                    emailValue: e.target.value
+                });
+            case 'name':
+                return this.setState({
+                    nameValue: e.target.value
+                });
+            case 'message':
+                return this.setState({
+                    messageValue: e.target.value
+                });
         }
     };
 
@@ -64,7 +61,7 @@ class ContactForm extends Component {
         return {
             border: error ? '1px solid #c5191c' : '1px solid #ccc'
         }
-    }
+    };
 
     render() {
         return (

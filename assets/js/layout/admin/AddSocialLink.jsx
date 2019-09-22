@@ -13,26 +13,25 @@ export class AddSocialLink extends Component {
     }
 
     handleChange = (e) => {
-        if(e.target.name === 'name') {
-            this.setState({
-                nameValue: e.target.value,
-            });
-        }
 
-        if(e.target.name === 'url') {
-            this.setState({
-                urlValue: e.target.value,
-            });
-        }
-
-        if(e.target.name === 'icon') {
-            this.setState({
-                iconValue: e.target.value,
-            });
+        switch(e.target.name) {
+            case 'name':
+                return this.setState({
+                    nameValue: e.target.value
+                });
+            case 'url':
+                return this.setState({
+                    urlValue: e.target.value
+                });
+            case 'icon':
+                return this.setState({
+                    iconValue: e.target.value
+                });
         }
     };
 
     getStyle = (error) => {
+
         if(error) {
             return {
                 border: '1px solid #c5191c'
