@@ -7,9 +7,9 @@ class ContactForm extends Component {
         super(props);
 
         this.state = {
-            emailValue: '',
-            nameValue: '',
-            messageValue: '',
+            email: '',
+            name: '',
+            message: '',
             emailError: '',
             nameError: '',
             messageError: '',
@@ -21,20 +21,7 @@ class ContactForm extends Component {
     handleChange = (e) => {
         e.preventDefault();
 
-        switch(e.target.name) {
-            case 'email':
-                return this.setState({
-                    emailValue: e.target.value
-                });
-            case 'name':
-                return this.setState({
-                    nameValue: e.target.value
-                });
-            case 'message':
-                return this.setState({
-                    messageValue: e.target.value
-                });
-        }
+        this.setState({[e.target.name]: e.target.value});
     };
 
     handleSubmit = (e) => {
@@ -42,9 +29,9 @@ class ContactForm extends Component {
         e.preventDefault();
 
         axios.post('http://127.0.0.1/api/email/send', {
-            email: this.state.emailValue,
-            name: this.state.nameValue,
-            message: this.state.messageValue
+            email: this.state.email,
+            name: this.state.name,
+            message: this.state.message
         })
             .then(response => {
                 this.setState({

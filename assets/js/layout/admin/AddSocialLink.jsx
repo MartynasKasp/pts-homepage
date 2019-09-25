@@ -6,28 +6,15 @@ export class AddSocialLink extends Component {
         super(props);
 
         this.state = {
-            nameValue: '',
-            urlValue: '',
-            iconValue: ''
+            name: '',
+            url: '',
+            icon: ''
         };
     }
 
     handleChange = (e) => {
 
-        switch(e.target.name) {
-            case 'name':
-                return this.setState({
-                    nameValue: e.target.value
-                });
-            case 'url':
-                return this.setState({
-                    urlValue: e.target.value
-                });
-            case 'icon':
-                return this.setState({
-                    iconValue: e.target.value
-                });
-        }
+        this.setState({[e.target.name]: e.target.value});
     };
 
     getStyle = (error) => {
@@ -50,17 +37,17 @@ export class AddSocialLink extends Component {
                     <div className="form-row">
                         <div className="col-12 col-md-3">
                             <div className="form-group">
-                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.nameError)} value={this.state.nameValue} onChange={this.handleChange} name="name" placeholder="Pavadinimas" />
+                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.nameError)} value={this.state.name} onChange={this.handleChange} name="name" placeholder="Pavadinimas" />
                             </div>
                         </div>
                         <div className="col-12 col-md-3">
                             <div className="form-group">
-                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.urlError)} value={this.state.urlValue} onChange={this.handleChange} name="url" placeholder="Nuorodos adresas" />
+                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.urlError)} value={this.state.url} onChange={this.handleChange} name="url" placeholder="Nuorodos adresas" />
                             </div>
                         </div>
                         <div className="col-12 col-md-3">
                             <div className="form-group">
-                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.iconError)} value={this.state.iconValue} onChange={this.handleChange} name="icon" placeholder="Ikona" />
+                                <input type="text" className="form-control" style={this.getStyle(this.props.validationErrors.iconError)} value={this.state.icon} onChange={this.handleChange} name="icon" placeholder="Ikona" />
                             </div>
                         </div>
                         <div className="col-12 col-md-3">

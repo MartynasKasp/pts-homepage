@@ -5,9 +5,9 @@ class SocialLinkItem extends Component {
 
     state = {
         id: this.props.item.id,
-        nameValue: this.props.item.name,
-        urlValue: this.props.item.url,
-        iconValue: this.props.item.icon,
+        name: this.props.item.name,
+        url: this.props.item.url,
+        icon: this.props.item.icon,
         nameError: false,
         iconError: false,
         urlError: false,
@@ -15,28 +15,15 @@ class SocialLinkItem extends Component {
 
     handleChange = (e) => {
 
-        switch(e.target.name) {
-            case 'name':
-                return this.setState({
-                    nameValue: e.target.value
-                });
-            case 'url':
-                return this.setState({
-                    urlValue: e.target.value
-                });
-            case 'icon':
-                return this.setState({
-                    iconValue: e.target.value
-                });
-        }
+        this.setState({[e.target.name]: e.target.value});
     };
 
     editSocial = () => {
 
         axios.post(`http://127.0.0.1/api/socials/edit/${this.state.id}`, {
-            name: this.state.nameValue,
-            url: this.state.urlValue,
-            icon: this.state.iconValue
+            name: this.state.name,
+            url: this.state.url,
+            icon: this.state.icon
         })
             .then(response => {
                 this.setState({
@@ -64,17 +51,17 @@ class SocialLinkItem extends Component {
             <div className="form-row">
                 <div className="col-12 col-md-3">
                     <div className="form-group">
-                        <input type="text" className="form-control" style={this.getStyle(this.state.nameError)} value={this.state.nameValue} onChange={this.handleChange} name="name" />
+                        <input type="text" className="form-control" style={this.getStyle(this.state.nameError)} value={this.state.name} onChange={this.handleChange} name="name" />
                     </div>
                 </div>
                 <div className="col-12 col-md-3">
                     <div className="form-group">
-                        <input type="text" className="form-control" style={this.getStyle(this.state.urlError)} value={this.state.urlValue} onChange={this.handleChange} name="url" />
+                        <input type="text" className="form-control" style={this.getStyle(this.state.urlError)} value={this.state.url} onChange={this.handleChange} name="url" />
                     </div>
                 </div>
                 <div className="col-12 col-md-3">
                     <div className="form-group">
-                        <input type="text" className="form-control" style={this.getStyle(this.state.iconError)} value={this.state.iconValue} onChange={this.handleChange} name="icon" />
+                        <input type="text" className="form-control" style={this.getStyle(this.state.iconError)} value={this.state.icon} onChange={this.handleChange} name="icon" />
                     </div>
                 </div>
                 <div className="col-12 col-md-2">
