@@ -28,7 +28,7 @@ class ContactForm extends Component {
 
         e.preventDefault();
 
-        axios.post('http://127.0.0.1/api/email/send', {
+        axios.post('/api/email/send', {
             email: this.state.email,
             name: this.state.name,
             message: this.state.message

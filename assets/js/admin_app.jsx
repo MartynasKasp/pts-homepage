@@ -24,7 +24,7 @@ class AdminApp extends Component {
 
     deleteSocialItem = (id) => {
 
-        axios.delete(`http://127.0.0.1/api/socials/delete/${id}`)
+        axios.delete(`/api/socials/delete/${id}`)
             .then(res => {
                 this.setState({ socialLinks:
                     [...this.state.socialLinks.filter(social => social.id !== id)]
@@ -34,7 +34,7 @@ class AdminApp extends Component {
 
     addSocialItem = (social) => {
 
-        axios.post('http://127.0.0.1/api/socials/add', {
+        axios.post('/api/socials/add', {
             name: social.name,
             url: social.url,
             icon: social.icon
