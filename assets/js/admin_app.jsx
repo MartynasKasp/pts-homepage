@@ -3,9 +3,12 @@ import ReactDom from 'react-dom';
 import AddSocialLink from './layout/admin/AddSocialLink';
 import SocialLinks from './layout/admin/SocialLinks';
 import axios from 'axios';
+import { Provider } from 'react-redux';
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
+
+import store from './store';
 
 class AdminApp extends Component {
 
@@ -13,7 +16,6 @@ class AdminApp extends Component {
         super(props);
 
         this.state = {
-            socialLinks: window.REP_LOG_APP_PROPS.socialLinks,
             addNewErrors: {
                 nameError: false,
                 urlError: false,
@@ -32,7 +34,7 @@ class AdminApp extends Component {
             })
     };
 
-    addSocialItem = (social) => {
+    /* addSocialItem = (social) => {
 
         axios.post('http://127.0.0.1/api/socials/add', {
             name: social.nameValue,
@@ -58,20 +60,20 @@ class AdminApp extends Component {
                     })
                 }
             })
-    };
+    }; */
 
     render() {
         return (
-            <div className="container">
-                <AddSocialLink
-                    addSocialItem={this.addSocialItem}
-                    validationErrors={this.state.addNewErrors}
-                />
-                <SocialLinks
-                    socialLinks={this.state.socialLinks}
-                    deleteSocial={this.deleteSocialItem}
-                />
-            </div>
+            <Provider store={store}>
+                <div className="container">
+                    <AddSocialLink
+                        validationErrors={this.state.addNewErrors}
+                    />
+                    <SocialLinks
+                        deleteSocial={this.deleteSocialItem}
+                    />
+                </div>
+            </Provider>
         );
     }
 }

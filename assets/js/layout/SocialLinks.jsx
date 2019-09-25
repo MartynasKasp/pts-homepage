@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import SocialItemDisplay from './SocialItemDisplay';
+import { connect } from 'react-redux';
+import { fetchSocials } from '../actions/socialActions';
 
 class SocialLinks extends Component {
+
+    componentDidMount() {
+        this.props.fetchSocials();
+    }
+
     render() {
         return (
             <div className="row">
                 <div className="col-12">
                     <ul className="social">
                         {
-                            this.props.socialLinks.map(social => (
+                            this.props.socials.map(social => (
                                 <SocialItemDisplay
                                     key={social.id}
                                     item={social}
@@ -22,4 +29,8 @@ class SocialLinks extends Component {
     }
 }
 
-export default SocialLinks;
+const mapStateToProps = state => ({
+   socials: state.socials.items
+});
+
+export default connect(mapStateToProps, { fetchSocials })(SocialLinks);

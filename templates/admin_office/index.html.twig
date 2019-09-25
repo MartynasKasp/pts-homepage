@@ -11,11 +11,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        {% if repLogAppProps is defined %}
-            window.REP_LOG_APP_PROPS = {{ repLogAppProps|json_encode|raw }};
-        {% endif %}
-    </script>
+
 
     {{ encore_entry_script_tags('admin_app') }}
 {% endblock %}

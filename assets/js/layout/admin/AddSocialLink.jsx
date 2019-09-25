@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createSocial } from '../../actions/socialActions';
 
 export class AddSocialLink extends Component {
 
@@ -30,6 +32,16 @@ export class AddSocialLink extends Component {
         }
     };
 
+    addSocial = () => {
+        const social = {
+            name: this.state.name,
+            url: this.state.url,
+            icon: this.state.icon
+        }
+
+        this.props.createSocial(social);
+    }
+
     render() {
         return (
             <div className="row mt-3 d-flex justify-content-center">
@@ -51,7 +63,7 @@ export class AddSocialLink extends Component {
                             </div>
                         </div>
                         <div className="col-12 col-md-3">
-                            <button className="btn btn-success" onClick={this.props.addSocialItem.bind(this, this.state)}>
+                            <button className="btn btn-success" onClick={this.addSocial}>
                                 <i className="fas fa-plus-circle"></i>
                             </button>
                         </div>
@@ -62,4 +74,4 @@ export class AddSocialLink extends Component {
     }
 }
 
-export default AddSocialLink;
+export default connect(null, { createSocial })(AddSocialLink);

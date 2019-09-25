@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Social;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Tests\Compiler\J;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,30 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiController extends AbstractController
 {
+    /**
+     * @Route("/api/socials", name="api_socials_get")
+     */
+    public function getSocials()
+    {
+        $socialLinks = $this->getDoctrine()->getRepository(Social::class)->findAll();
+
+        $items = [];
+
+        foreach($socialLinks as $socialLink) {
+            $items[] = [
+                'id' => $socialLink->getId(),
+                'name' => $socialLink->getName(),
+                'url' => $socialLink->getUrl(),
+                'icon' => $socialLink->getIcon()
+            ];
+        }
+
+        return new JsonResponse([
+            'message' => 'OK',
+            'items' => $items
+        ]);
+    }
+
     /**
      * @Route("/api/socials/add", name="api_socials_add")
      */
@@ -23,9 +48,9 @@ class ApiController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $social = new Social();
-        $social->setIcon($data['icon'])
-            ->setName($data['name'])
-            ->setUrl($data['url']);
+        $social->setIcon($data['data']['icon'])
+            ->setName($data['data']['name'])
+            ->setUrl($data['data']['url']);
 
         $formErrors = $this->validateSocialObject($social, $validator);
         if(!empty($formErrors))
@@ -34,11 +59,11 @@ class ApiController extends AbstractController
         $em->persist($social);
         $em->flush();
 
-        $data['id'] = $social->getId();
+        $data['data']['id'] = $social->getId();
 
         return new JsonResponse([
             'message' => 'OK',
-            'item' => $data
+            'item' => $data['data']
         ]);
     }
 
