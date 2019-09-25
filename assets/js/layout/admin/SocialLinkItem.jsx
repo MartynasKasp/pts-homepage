@@ -65,7 +65,7 @@ class SocialLinkItem extends Component {
                     </div>
                 </div>
                 <div className="col-12 col-md-2">
-                    <button className="btn btn-success" onClick={this.editSocial()}>
+                    <button className="btn btn-success" onClick={this.editSocial}>
                         <i className="fas fa-edit"></i>
                     </button>
                     {' '}

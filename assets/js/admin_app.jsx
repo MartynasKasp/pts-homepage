@@ -35,9 +35,9 @@ class AdminApp extends Component {
     addSocialItem = (social) => {
 
         axios.post('http://127.0.0.1/api/socials/add', {
-            name: social.nameValue,
-            url: social.urlValue,
-            icon: social.iconValue
+            name: social.name,
+            url: social.url,
+            icon: social.icon
         })
             .then(response => {
                 if(response.data.message) {
@@ -47,7 +47,11 @@ class AdminApp extends Component {
                                 name: response.data.item.name,
                                 url: response.data.item.url,
                                 icon: response.data.item.icon,
-                            }]
+                            }], addNewErrors: {
+                            nameError: false,
+                            urlError: false,
+                            iconError: false,
+                        }
                     })
                 } else {
                     this.setState({ addNewErrors: {
