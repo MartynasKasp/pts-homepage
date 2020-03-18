@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}My portfolio{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('styles') }}
@@ -11,11 +11,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        {% if repLogAppProps is defined %}
-            window.REP_LOG_APP_PROPS = {{ repLogAppProps|json_encode|raw }};
-        {% endif %}
-    </script>
-
     {{ encore_entry_script_tags('app') }}
 {% endblock %}

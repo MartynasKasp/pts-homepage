@@ -13,25 +13,7 @@ class LandingPageController extends AbstractController
      */
     public function index()
     {
-        $socialLinks = $this->getDoctrine()->getRepository(Social::class)->findAll();
-
-        $repLogAppProps = [
-            'socialLinks' => [],
-        ];
-
-        foreach($socialLinks as $socialLink) {
-            $repLogAppProps['socialLinks'][] = [
-                'id' => $socialLink->getId(),
-                'name' => $socialLink->getName(),
-                'url' => $socialLink->getUrl(),
-                'icon' => $socialLink->getIcon()
-            ];
-        }
-
-        return $this->render('landing_page/index.html.twig', [
-            'page_title' => 'Welcome to my CV!',
-            'repLogAppProps' => $repLogAppProps,
-        ]);
+        return $this->render('landing_page/index.html.twig');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\Social;
 use App\Entity\User;
@@ -10,10 +10,38 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ApiController extends AbstractController
+/**
+ * @Route("/api/socials")
+ */
+class SocialsController extends AbstractController
 {
     /**
-     * @Route("/api/socials/add", name="api_socials_add")
+     * @Route("/", name="api_socials_get", methods={"GET"})
+     */
+    public function getSocials()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $socials = $em->getRepository(Social::class)->findAll();
+
+        $allSocials = [];
+        foreach ($socials as $social) {
+            $allSocials[] = [
+                'id' => $social->getId(),
+                'name' => $social->getName(),
+                'url' => $social->getUrl(),
+                'icon' => $social->getIcon()
+            ];
+        }
+
+        return new JsonResponse($allSocials);
+    }
+
+    /**
+     * @Route("/add", name="api_socials_add", methods={"POST"})
+     * @param Request $request
+     * @param ValidatorInterface $validator
+     * @return JsonResponse
      */
     public function addSocial(Request $request, ValidatorInterface $validator)
     {
@@ -29,7 +57,7 @@ class ApiController extends AbstractController
 
         $formErrors = $this->validateSocialObject($social, $validator);
         if(!empty($formErrors))
-            return new JsonResponse($formErrors);
+            return new JsonResponse($formErrors, 400);
 
         $em->persist($social);
         $em->flush();
@@ -43,7 +71,9 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/socials/delete/{id}", name="api_socials_delete")
+     * @Route("/{id}/delete", name="api_socials_delete", methods={"DELETE"})
+     * @param int $id
+     * @return JsonResponse
      */
     public function deleteSocial(int $id)
     {
@@ -62,7 +92,11 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/socials/edit/{id}", name="api_socials_edit")
+     * @Route("/{id}/edit", name="api_socials_edit", methods={"PATCH"})
+     * @param Request $request
+     * @param ValidatorInterface $validator
+     * @param int $id
+     * @return JsonResponse
      */
     public function editSocial(Request $request, ValidatorInterface $validator, int $id)
     {
@@ -78,8 +112,8 @@ class ApiController extends AbstractController
             ->setIcon($data['icon']);
 
         $formErrors = $this->validateSocialObject($socialValidate, $validator);
-        if(!empty($formErrors))
-            return new JsonResponse($formErrors);
+        if (!empty($formErrors))
+            return new JsonResponse($formErrors, 400);
 
         $social = $em->getRepository(Social::class)->findOneBy([
             'id' => $id
@@ -93,80 +127,6 @@ class ApiController extends AbstractController
 
         return new JsonResponse([
             'message' => 'OK'
-        ]);
-    }
-
-    /**
-     * @Route("/api/email/send", name="api_email_send")
-     */
-    public function emailSend(Request $request, \Swift_Mailer $mailer)
-    {
-        $data = $request->getContent();
-        $data = json_decode($data, true);
-
-        if(empty($data)) {
-            return new JsonResponse([
-                'error' => 'ERROR'
-            ]);
-        }
-
-        $data['message'] = strip_tags($data['message']);
-
-        $formErrors = [];
-        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $formErrors['emailError'] = 'Privalote įvesti galiojantį el. pašto adresą.';
-        }
-
-        if(empty($data['name'])) {
-            $formErrors['nameError'] = 'Privalote įvesti savo vardą.';
-        }
-        else if(strlen($data['name']) < 5) {
-            $formErrors['nameError'] = 'Pateiktas vardas yra per trumpas.';
-        }
-        else if(strlen($data['name']) > 30) {
-            $formErrors['nameError'] = 'Pateiktas vardas yra per ilgas.';
-        }
-
-        if(empty($data['message'])) {
-            $formErrors['messageError'] = 'Privalote įvesti žinutę.';
-        }
-        else if(strlen($data['message']) > 1000) {
-            $formErrors['messageError'] = 'Įvestas per ilgas žinutės tekstas.';
-        }
-
-        if(!empty($formErrors)) {
-            return new JsonResponse($formErrors);
-        }
-
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-
-        $targetEmails = [];
-        foreach($users as $user) {
-            $targetEmails[] = $user->getEmail();
-        }
-
-        $message = (new \Swift_Message('Nauja žinutė iš portfolio'))
-            ->setFrom($data['email'])
-            ->setTo($targetEmails)
-            ->setBody(
-                $this->renderView(
-                    'emails/contact_message.html.twig',
-                    [
-                        'message' => $data['message'],
-                        'name' => $data['name']
-                    ]
-                ),
-                'text/html'
-            );
-
-        if(!$mailer->send($message)) {
-            return new JsonResponse([
-                'errorMessage' => 'Kažkas įvyko neteisingai, Jūsų žinutė nebuvo išsiųsta!'
-            ]);
-        }
-
-        return new JsonResponse([
-            'successMessage' => 'Jūsų žinutė išsiųsta sėkmingai!'
         ]);
     }
 

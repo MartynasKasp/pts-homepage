@@ -9,17 +9,18 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
 class App extends Component {
+
     render() {
         return (
             <Router>
                 <div className="container-fluid">
-                    <Header socialLinks={window.REP_LOG_APP_PROPS.socialLinks} />
+                    <Header />
                     <div className="row mt-3 d-flex justify-content-center">
                         <div className="col-8 col-sm-4 col-xl-1 p-2 navbar-item">
                             <Link to="/">Pagrindinis</Link>
                         </div>
                         <div className="col-8 col-sm-4 col-xl-1 p-2 navbar-item">
-                                <Link to="/contact">Susisiekti</Link>
+                            <Link to="/contact">Susisiekti</Link>
                         </div>
                     </div>
                     <Route path="/" exact component={Content}/>

@@ -20,7 +20,7 @@ class SocialLinkItem extends Component {
 
     editSocial = () => {
 
-        axios.post(`/api/socials/edit/${this.state.id}`, {
+        axios.patch(`/api/socials/${this.state.id}/edit`, {
             name: this.state.name,
             url: this.state.url,
             icon: this.state.icon

@@ -13,7 +13,7 @@ class AdminApp extends Component {
         super(props);
 
         this.state = {
-            socialLinks: window.REP_LOG_APP_PROPS.socialLinks,
+            socials: [],
             addNewErrors: {
                 nameError: false,
                 urlError: false,
@@ -22,12 +22,17 @@ class AdminApp extends Component {
         }
     }
 
+    componentDidMount() {
+        axios.get(`/api/socials`)
+            .then(res => this.setState({ socials: res.data }));
+    }
+
     deleteSocialItem = (id) => {
 
-        axios.delete(`/api/socials/delete/${id}`)
+        axios.delete(`/api/socials/${id}/delete`)
             .then(res => {
-                this.setState({ socialLinks:
-                    [...this.state.socialLinks.filter(social => social.id !== id)]
+                this.setState({ socials:
+                    [...this.state.socials.filter(social => social.id !== id)]
                 });
             })
     };
@@ -41,8 +46,8 @@ class AdminApp extends Component {
         })
             .then(response => {
                 if(response.data.message) {
-                    this.setState({ socialLinks:
-                            [...this.state.socialLinks, {
+                    this.setState({ socials:
+                            [...this.state.socials, {
                                 id: response.data.item.id,
                                 name: response.data.item.name,
                                 url: response.data.item.url,
@@ -72,7 +77,7 @@ class AdminApp extends Component {
                     validationErrors={this.state.addNewErrors}
                 />
                 <SocialLinks
-                    socialLinks={this.state.socialLinks}
+                    socialLinks={this.state.socials}
                     deleteSocial={this.deleteSocialItem}
                 />
             </div>

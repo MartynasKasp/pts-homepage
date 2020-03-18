@@ -16,9 +16,7 @@ class Header extends Component {
                             <h1>MARTYNAS KASPARAVIČIUS</h1>
                         </div>
                     </div>
-                    <SocialLinks
-                        socialLinks={this.props.socialLinks}
-                    />
+                    <SocialLinks />
                 </div>
             </div>
         )

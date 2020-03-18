@@ -4,7 +4,7 @@ class SocialItemDisplay extends Component {
     render() {
         return (
             <li>
-                <i className={this.props.item.icon}></i>&nbsp; <a href={this.props.item.url}>{this.props.item.name}</a>
+                <i className={this.props.item.icon}></i>{ ' ' } <a target="_blank" href={this.props.item.url}>{this.props.item.name}</a>
             </li>
         )
     }
