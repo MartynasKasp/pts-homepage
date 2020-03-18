@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -15,6 +16,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class SocialsController extends AbstractController
 {
+    /**
+     * @var ValidatorInterface $validator
+     */
+    private $validator;
+
+    public function __construct(ValidatorInterface $validator)
+    {
+        $this->validator = $validator;
+    }
+
     /**
      * @Route("/", name="api_socials_get", methods={"GET"})
      */
@@ -40,10 +51,9 @@ class SocialsController extends AbstractController
     /**
      * @Route("/add", name="api_socials_add", methods={"POST"})
      * @param Request $request
-     * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function addSocial(Request $request, ValidatorInterface $validator)
+    public function addSocial(Request $request)
     {
         $data = $request->getContent();
         $data = json_decode($data, true);
@@ -55,19 +65,14 @@ class SocialsController extends AbstractController
             ->setName($data['name'])
             ->setUrl($data['url']);
 
-        $formErrors = $this->validateSocialObject($social, $validator);
+        $formErrors = $this->validateSocialObject($social);
         if(!empty($formErrors))
-            return new JsonResponse($formErrors, 400);
+            return new JsonResponse(['errors' => $formErrors], 400);
 
         $em->persist($social);
         $em->flush();
 
-        $data['id'] = $social->getId();
-
-        return new JsonResponse([
-            'message' => 'OK',
-            'item' => $data
-        ]);
+        return new JsonResponse($social, 201);
     }
 
     /**
@@ -86,19 +91,16 @@ class SocialsController extends AbstractController
         $em->remove($social);
         $em->flush();
 
-        return new JsonResponse([
-            'message' => 'OK'
-        ]);
+        return new JsonResponse();
     }
 
     /**
      * @Route("/{id}/edit", name="api_socials_edit", methods={"PATCH"})
      * @param Request $request
-     * @param ValidatorInterface $validator
      * @param int $id
      * @return JsonResponse
      */
-    public function editSocial(Request $request, ValidatorInterface $validator, int $id)
+    public function editSocial(Request $request, int $id)
     {
         $data = $request->getContent();
         $data = json_decode($data, true);
@@ -111,9 +113,10 @@ class SocialsController extends AbstractController
             ->setUrl($data['url'])
             ->setIcon($data['icon']);
 
-        $formErrors = $this->validateSocialObject($socialValidate, $validator);
-        if (!empty($formErrors))
-            return new JsonResponse($formErrors, 400);
+        $formErrors = $this->validateSocialObject($socialValidate);
+        if (!empty($formErrors)) {
+            return new JsonResponse(['errors' => $formErrors], 400);
+        }
 
         $social = $em->getRepository(Social::class)->findOneBy([
             'id' => $id
@@ -125,24 +128,21 @@ class SocialsController extends AbstractController
 
         $em->flush();
 
-        return new JsonResponse([
-            'message' => 'OK'
-        ]);
+        return new JsonResponse();
     }
 
-    private function validateSocialObject(Social $social, ValidatorInterface $validator)
+    private function validateSocialObject(Social $social)
     {
-        $nameError = $validator->validateProperty($social, 'name');
-        $urlError = $validator->validateProperty($social, 'url');
-        $iconError = $validator->validateProperty($social, 'icon');
-        $formErrors = [];
-        if(count($nameError) > 0)
-            $formErrors['nameError'] = true;
-        if(count($urlError) > 0)
-            $formErrors['urlError'] = true;
-        if(count($iconError) > 0)
-            $formErrors['iconError'] = true;
-
-        return $formErrors;
+        $errors = [];
+        $violations = $this->validator->validate($social);
+        if (count($violations) > 0) {
+            foreach ($violations as $violation) {
+                $errors[] = [
+                    'message' => $violation->getMessage(),
+                    'propertyPath' => $violation->getPropertyPath()
+                ];
+            }
+        }
+        return $errors;
     }
 }

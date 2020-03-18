@@ -58,7 +58,7 @@ class ApiController extends AbstractController
         }
 
         if(!empty($formErrors)) {
-            return new JsonResponse($formErrors, 400);
+            return new JsonResponse(['errors' => $formErrors], 400);
         }
 
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
@@ -68,6 +68,7 @@ class ApiController extends AbstractController
             $targetEmails[] = $user->getEmail();
         }
 
+        // TODO: create mailer service
         $message = (new \Swift_Message('Nauja žinutė iš portfolio'))
             ->setFrom($data['email'])
             ->setTo($targetEmails)
@@ -84,12 +85,12 @@ class ApiController extends AbstractController
 
         if(!$mailer->send($message)) {
             return new JsonResponse([
-                'errorMessage' => 'Kažkas įvyko neteisingai, Jūsų žinutė nebuvo išsiųsta!'
+                'response' => 'Kažkas įvyko neteisingai, Jūsų žinutė nebuvo išsiųsta!'
             ], 400);
         }
 
         return new JsonResponse([
-            'successMessage' => 'Jūsų žinutė išsiųsta sėkmingai!'
+            'response' => 'Jūsų žinutė išsiųsta sėkmingai!'
         ]);
     }
 }
